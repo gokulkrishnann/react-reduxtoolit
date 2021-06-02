@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+
 import { fetchContacts, editContact } from '../../redux/actions/contactActions';
+import { getContactsList } from '../../store/contact-actions';
 import { Container } from './styles';
 import ContactList from '../../components/Contacts/ContactList';
 
@@ -10,6 +12,14 @@ const Contacts = () => {
   const [searchResults, setSearchResults] = useState([]);
   const dispatch = useDispatch();
 
+  const contactList = useSelector((state: any) => state.contact.users);
+  useEffect(() => {
+    // getAllContacts();
+    console.log('contactList', contactList);
+    dispatch(getContactsList());
+
+    setContacts(contactList);
+  }, [dispatch]);
   const updateContactHandler = async (contact) => {
     const response: any = await dispatch(editContact(contact));
     const { id } = response;
@@ -37,12 +47,11 @@ const Contacts = () => {
     }
   };
   const getAllContacts = useCallback(async () => {
-    const allContacts: any = await dispatch(fetchContacts());
+    // const allContacts: any = await dispatch(fetchContacts());
+    const allContacts: any = await dispatch(getContactsList());
+    console.log('allContacts in component', allContacts);
     if (allContacts) setContacts(allContacts);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  useEffect(() => {
-    getAllContacts();
-  }, [getAllContacts]);
 
   useEffect(() => {
     searchHandler(searchTerm);

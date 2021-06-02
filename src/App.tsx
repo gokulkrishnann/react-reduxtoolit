@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Provider } from 'react-redux';
-import { store } from './redux/store/store';
+// import { store } from './redux/store/store';
+import store from './store/index';
 import { createGlobalStyle } from 'styled-components';
 import Navbar from './components/NavBar';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';

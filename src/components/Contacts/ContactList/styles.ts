@@ -26,12 +26,17 @@ export const SearchBar = styled.div`
 
 export const SearchBlock = styled.div`
   padding-left: 40px;
-  width: 100%;
   position: relative;
   font-weight: 400;
   font-style: normal;
   display: flex;
   color: rgba(0, 0, 0, 0.87);
+  width: 100%;
+  @media only screen and (min-width: 768px) {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+  }
 `;
 
 export const SearchInput = styled.input`
@@ -40,6 +45,7 @@ export const SearchInput = styled.input`
   border: 1.5px solid rgba(34, 36, 38, 0.15);
   margin: 0;
   max-width: 100%;
+
   flex: 1 0 auto;
   outline: 0;
   color: rgba(0, 0, 0, 0.87);
@@ -47,10 +53,16 @@ export const SearchInput = styled.input`
   line-height: 1.21428571em;
   padding: 0.67857143em 1em;
   background: #fff;
-  width: 100%;
   position: relative;
   font-weight: 400;
   font-style: normal;
+  width: 100%;
+
+  @media only screen and (min-width: 768px) {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+  }
 `;
 
 export const SearchIcon = styled(FontAwesomeIcon)`

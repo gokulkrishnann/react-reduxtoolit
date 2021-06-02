@@ -10,14 +10,18 @@ export const NavBar = styled.div`
 
 export const NavBarMenu = styled.nav`
   background-color: #060b26;
-  width: 250px;
-  height: 100vh;
+  height: 200vh;
   display: flex;
   justify-content: center;
   position: fixed;
   top: 0;
   left: 0;
   transition: 350ms;
+  width: 60px;
+
+  @media only screen and (min-width: 768px) {
+    width: 250px;
+  }
 `;
 
 export const NavMenuItems = styled.ul`
@@ -40,7 +44,6 @@ export const NavText = styled.li`
   padding: 8px 0px 8px 16px;
   list-style: none;
   height: 60px;
-
   & a {
     text-decoration: none;
     color: #f5f5f5;
@@ -54,6 +57,18 @@ export const NavText = styled.li`
   }
   & a > span {
     margin-left: 16px;
+  }
+
+  @media only screen and (min-width: 768px) {
+    & a > span {
+      display: none;
+    }
+    & a > svg {
+      font-size: 20px;
+    }
+    & a {
+      width: 35%;
+    }
   }
 `;
 
