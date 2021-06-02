@@ -11,7 +11,6 @@ import {
 } from './styles';
 import Checkbox from '../../Checkbox';
 import RadioButtonGroup from '../../RadioButtonGroup';
-import { ContactsActionTypes } from '../../../redux/actions/contactActions';
 type Props = {
   contact: {
     id: number;
@@ -75,7 +74,8 @@ const EditContact: FC<Props> = ({
     e.preventDefault();
     validateForm();
 
-    if (isEmpty(error)) {
+    if (!isEmpty(error)) {
+      console.log('error', error);
       return;
     }
     // setError(errorInitialState);

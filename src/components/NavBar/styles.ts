@@ -17,11 +17,7 @@ export const NavBarMenu = styled.nav`
   top: 0;
   left: 0;
   transition: 350ms;
-  width: 60px;
-
-  @media only screen and (min-width: 768px) {
-    width: 250px;
-  }
+  width: 250px;
 `;
 
 export const NavMenuItems = styled.ul`
@@ -57,18 +53,6 @@ export const NavText = styled.li`
   }
   & a > span {
     margin-left: 16px;
-  }
-
-  @media only screen and (min-width: 768px) {
-    & a > span {
-      display: none;
-    }
-    & a > svg {
-      font-size: 20px;
-    }
-    & a {
-      width: 35%;
-    }
   }
 `;
 

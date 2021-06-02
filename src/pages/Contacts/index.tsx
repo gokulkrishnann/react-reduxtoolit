@@ -1,31 +1,24 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
-import { fetchContacts, editContact } from '../../redux/actions/contactActions';
-import { getContactsList } from '../../store/contact-actions';
+import { editContact } from '../../store/contact-slice';
 import { Container } from './styles';
 import ContactList from '../../components/Contacts/ContactList';
 
 const Contacts = () => {
-  const [contacts, setContacts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const dispatch = useDispatch();
-
+  const [selectedContact, setSelectedContact] = useState(null);
   const contactList = useSelector((state: any) => state.contact.users);
-  useEffect(() => {
-    // getAllContacts();
-    console.log('contactList', contactList);
-    dispatch(getContactsList());
 
-    setContacts(contactList);
-  }, [dispatch]);
-  const updateContactHandler = async (contact) => {
-    const response: any = await dispatch(editContact(contact));
-    const { id } = response;
-    setContacts(
-      contacts.map((contact) => {
-        return contact.id === id ? { ...response } : contact;
+  const updateContactHandler = (contact) => {
+    setSelectedContact(contact);
+    dispatch(
+      editContact({
+        id: contact.id,
+        first_name: contact.first_name,
+        last_name: contact.last_name,
+        email: contact.email
       })
     );
   };
@@ -34,33 +27,26 @@ const Contacts = () => {
     setSearchTerm(searchTerm);
 
     if (searchTerm !== '') {
-      const newContactList = contacts.filter((contact) => {
+      const newContactList = contactList.filter((contact) => {
         return Object.values(contact)
           .join(' ')
           .toLowerCase()
-
           .includes(searchTerm.toLowerCase());
       });
       setSearchResults(newContactList);
     } else {
-      setSearchResults(contacts);
+      setSearchResults(contactList);
     }
   };
-  const getAllContacts = useCallback(async () => {
-    // const allContacts: any = await dispatch(fetchContacts());
-    const allContacts: any = await dispatch(getContactsList());
-    console.log('allContacts in component', allContacts);
-    if (allContacts) setContacts(allContacts);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     searchHandler(searchTerm);
-  }, [searchTerm, contacts]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [searchTerm, contactList]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Container>
       <ContactList
-        contacts={searchTerm.length < 1 ? contacts : searchResults}
+        contacts={searchTerm.length < 1 ? contactList : searchResults}
         updateContactHandler={updateContactHandler}
         term={searchTerm}
         searchKeyword={searchHandler}

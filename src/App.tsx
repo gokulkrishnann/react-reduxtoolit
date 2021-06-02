@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Provider } from 'react-redux';
-// import { store } from './redux/store/store';
 import store from './store/index';
 import { createGlobalStyle } from 'styled-components';
 import Navbar from './components/NavBar';
@@ -9,6 +8,7 @@ import Home from './pages/Home';
 import Contacts from './pages/Contacts';
 import Products from './pages/Products';
 import { NavBarContext } from './context/NavBarContext';
+import { fetchContacts } from './store/contact-slice';
 
 const GlobalStyle = createGlobalStyle`
 *{
@@ -19,6 +19,7 @@ const GlobalStyle = createGlobalStyle`
 }
 `;
 
+store.dispatch(fetchContacts());
 const App = () => {
   const [activeLink, setActiveLink] = useState('');
 

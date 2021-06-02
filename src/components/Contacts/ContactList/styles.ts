@@ -32,11 +32,6 @@ export const SearchBlock = styled.div`
   display: flex;
   color: rgba(0, 0, 0, 0.87);
   width: 100%;
-  @media only screen and (min-width: 768px) {
-    width: 50%;
-    margin-left: auto;
-    margin-right: auto;
-  }
 `;
 
 export const SearchInput = styled.input`
@@ -57,12 +52,6 @@ export const SearchInput = styled.input`
   font-weight: 400;
   font-style: normal;
   width: 100%;
-
-  @media only screen and (min-width: 768px) {
-    width: 50%;
-    margin-left: auto;
-    margin-right: auto;
-  }
 `;
 
 export const SearchIcon = styled(FontAwesomeIcon)`
