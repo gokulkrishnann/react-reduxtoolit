@@ -20,6 +20,7 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 store.dispatch(fetchContacts());
+export const NoPage = () => <div> No page found </div>;
 const App = () => {
   const [activeLink, setActiveLink] = useState('');
 
@@ -34,6 +35,7 @@ const App = () => {
               <Route path="/" exact component={Home} />
               <Route path="/contacts" component={Contacts} />
               <Route path="/products" component={Products} />
+              <Route component={NoPage}></Route>
             </Switch>
           </Router>
         </NavBarContext.Provider>

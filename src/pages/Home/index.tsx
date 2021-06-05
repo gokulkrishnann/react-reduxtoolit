@@ -2,8 +2,8 @@ import React from 'react';
 import { Container } from './styles';
 const Home = () => {
   return (
-    <Container>
-      <h1>Home</h1>
+    <Container data-testid="home">
+      <h1>Home Page</h1>
     </Container>
   );
 };
