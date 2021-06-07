@@ -9,6 +9,7 @@ export const fetchContacts: any = createAsyncThunk(
     return contactsList;
   }
 );
+
 const contactSlice = createSlice({
   name: 'contacts',
   initialState: {
@@ -17,6 +18,9 @@ const contactSlice = createSlice({
     error: null
   },
   reducers: {
+    addContact(state, action) {
+      state.users.push(action.payload);
+    },
     editContact(state, action) {
       const { id, first_name, last_name, email } = action.payload;
       const existingUser = state.users.find((user) => user.id === id);
@@ -41,6 +45,6 @@ const contactSlice = createSlice({
   }
 });
 
-export const { editContact } = contactSlice.actions;
+export const { addContact, editContact } = contactSlice.actions;
 
 export default contactSlice;

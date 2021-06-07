@@ -12,18 +12,7 @@ import {
 import Checkbox from '../../Checkbox';
 import RadioButtonGroup from '../../RadioButtonGroup';
 type Props = {
-  contact: {
-    id: number;
-    first_name: string;
-    last_name: string;
-    department: string;
-    email: string;
-    contribution: number;
-    gender?: string;
-    isChecked?: boolean;
-    avatar?: string;
-  };
-  updateContactHandler: (param) => void;
+  addContactHandler: (param) => void;
   closeModal: () => void;
 };
 
@@ -31,22 +20,18 @@ type Option = any;
 const errorInitialState = { first_name: '', email: '' };
 export const isEmpty = (object: unknown): boolean =>
   object != null && !Object.values(object).some((x) => x !== null && x !== '');
-const EditContact: FC<Props> = ({
-  contact,
-  closeModal,
-  updateContactHandler
-}) => {
-  const { id, first_name, last_name, department, email, avatar } = contact;
+const AddContact: FC<Props> = ({ closeModal, addContactHandler }) => {
+  // const { id, first_name, last_name, department, email, avatar } = contact;
   const [state, setState] = useState({
-    id,
-    first_name,
-    last_name,
-    department,
-    email,
+    id: '',
+    first_name: '',
+    last_name: '',
+    department: '',
+    email: '',
     gender: 'Male',
     isChecked: false,
-    contribution: 0,
-    avatar
+    contribution: '0',
+    avatar: ''
   });
   const [error, setError] = useState(errorInitialState);
   const validateForm = () => {
@@ -57,16 +42,8 @@ const EditContact: FC<Props> = ({
     for (let i = 0; i < fields.length; i++) {
       if (values[i] === '') {
         validateField(fields[i], values[i]);
-        // const fieldError = validateField(fields[i], values[i]);
-        // console.log({ fieldError });
-        // errorList = {
-        //   ...errorList,
-        //   [Object.keys(fieldError)[i]]: fieldError[fields[i]]
-        // };
       }
     }
-    // console.log('errorList', errorList);
-    // setError(errorList);
     console.log('error', error);
   };
 
@@ -78,22 +55,7 @@ const EditContact: FC<Props> = ({
       console.log('error', error);
       return;
     }
-    // setError(errorInitialState);
-    // if (state.first_name === '' && state.email === '') {
-    //   setError({
-    //     first_name: 'first name is required',
-    //     email: 'email is required'
-    //   });
-    //   return;
-    // } else if (state.first_name === '') {
-    //   setError({ ...error, first_name: 'first name is required' });
-    //   return;
-    // } else if (state.email === '') {
-    //   setError({ ...error, email: 'email is required' });
-    //   return;
-    // }
-
-    updateContactHandler(state);
+    addContactHandler(state);
     setState({ ...state, first_name: '', email: '' });
   };
 
@@ -199,7 +161,7 @@ const EditContact: FC<Props> = ({
           max={100000}
           name="contribution"
           label="Contribution:"
-          value={state.contribution}
+          value={+state.contribution}
           onValueChange={onChangeHandler}
         />
       </Wrapper>
@@ -223,4 +185,4 @@ const EditContact: FC<Props> = ({
   );
 };
 
-export default EditContact;
+export default AddContact;

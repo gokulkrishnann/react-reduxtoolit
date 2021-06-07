@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Button from '../../Button';
 
 export const Container = styled.div`
   margin-top: 2em;
@@ -24,6 +25,11 @@ export const SearchBar = styled.div`
   position: relative;
 `;
 
+export const AddButton = styled(Button)`
+  margin-left: 10px;
+  margin-bottom: 5px;
+`;
+
 export const SearchBlock = styled.div`
   padding-left: 40px;
   position: relative;
@@ -31,7 +37,7 @@ export const SearchBlock = styled.div`
   font-style: normal;
   display: flex;
   color: rgba(0, 0, 0, 0.87);
-  width: 100%;
+  width: 85%;
 `;
 
 export const SearchInput = styled.input`

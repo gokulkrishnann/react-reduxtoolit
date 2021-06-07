@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { editContact } from '../../store/contact-slice';
+import { editContact, addContact } from '../../store/contact-slice';
 import { Container } from './styles';
 import ContactList from '../../components/Contacts/ContactList';
 
@@ -16,6 +16,18 @@ const Contacts = () => {
     dispatch(
       editContact({
         id: contact.id,
+        first_name: contact.first_name,
+        last_name: contact.last_name,
+        email: contact.email
+      })
+    );
+  };
+
+  const addContactHandler = (contact) => {
+    console.log('new contact', contact);
+    dispatch(
+      addContact({
+        id: contactList.length + 1,
         first_name: contact.first_name,
         last_name: contact.last_name,
         email: contact.email
@@ -48,6 +60,7 @@ const Contacts = () => {
       <ContactList
         contacts={searchTerm.length < 1 ? contactList : searchResults}
         updateContactHandler={updateContactHandler}
+        addContactHandler={addContactHandler}
         term={searchTerm}
         searchKeyword={searchHandler}
       />
