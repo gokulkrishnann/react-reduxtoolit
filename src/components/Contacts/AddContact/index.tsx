@@ -11,6 +11,7 @@ import {
 } from './styles';
 import Checkbox from '../../Checkbox';
 import RadioButtonGroup from '../../RadioButtonGroup';
+import contact from '../../..//assets/contact.png';
 type Props = {
   addContactHandler: (param) => void;
   closeModal: () => void;
@@ -21,7 +22,6 @@ const errorInitialState = { first_name: '', email: '' };
 export const isEmpty = (object: unknown): boolean =>
   object != null && !Object.values(object).some((x) => x !== null && x !== '');
 const AddContact: FC<Props> = ({ closeModal, addContactHandler }) => {
-  // const { id, first_name, last_name, department, email, avatar } = contact;
   const [state, setState] = useState({
     id: '',
     first_name: '',
@@ -30,8 +30,8 @@ const AddContact: FC<Props> = ({ closeModal, addContactHandler }) => {
     email: '',
     gender: 'Male',
     isChecked: false,
-    contribution: '0',
-    avatar: ''
+    contribution: 0,
+    avatar: contact
   });
   const [error, setError] = useState(errorInitialState);
   const validateForm = () => {
@@ -47,7 +47,7 @@ const AddContact: FC<Props> = ({ closeModal, addContactHandler }) => {
     console.log('error', error);
   };
 
-  const update = (e) => {
+  const addHandler = (e) => {
     e.preventDefault();
     validateForm();
 
@@ -75,7 +75,7 @@ const AddContact: FC<Props> = ({ closeModal, addContactHandler }) => {
       default:
         break;
     }
-    console.log('after update errorDetails', errorDetails);
+    console.log('after addHandler errorDetails', errorDetails);
     setError(errorDetails);
     // return errorDetails;
   };
@@ -89,14 +89,14 @@ const AddContact: FC<Props> = ({ closeModal, addContactHandler }) => {
   };
 
   const onChangeHandler = (e) => {
-    e.preventDefault();
-    const { name, value } = e.target;
-    validateField(name, value);
-    // setError(errors);
+    if (typeof e === 'function') {
+      e.preventDefault();
+    }
     if (!e.target) {
       setState({ ...state, contribution: e });
     } else {
-      // const { name, value } = e.target;
+      const { name, value } = e.target;
+      validateField(name, value);
       setState({ ...state, [name]: value });
     }
   };
@@ -105,7 +105,7 @@ const AddContact: FC<Props> = ({ closeModal, addContactHandler }) => {
     setState({ ...state, gender: value });
   };
   return (
-    <FormContainer onSubmit={update} data-testid="form">
+    <FormContainer onSubmit={addHandler} data-testid="form">
       <Wrapper>
         <StyledTextInput
           label="First Name:"

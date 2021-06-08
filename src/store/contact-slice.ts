@@ -5,7 +5,6 @@ export const fetchContacts: any = createAsyncThunk(
   async () => {
     const response = await api.get('/users');
     const contactsList = response.data.data;
-    console.log('contactsList', contactsList);
     return contactsList;
   }
 );
