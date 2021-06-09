@@ -11,7 +11,7 @@ import {
 } from './styles';
 import Checkbox from '../../Checkbox';
 import RadioButtonGroup from '../../RadioButtonGroup';
-import contact from '../../..//assets/contact.png';
+import image_default from '../../../assets/img_default.png';
 type Props = {
   addContactHandler: (param) => void;
   closeModal: () => void;
@@ -31,13 +31,12 @@ const AddContact: FC<Props> = ({ closeModal, addContactHandler }) => {
     gender: 'Male',
     isChecked: false,
     contribution: 0,
-    avatar: contact
+    avatar: image_default
   });
   const [error, setError] = useState(errorInitialState);
   const validateForm = () => {
     const fields = ['first_name', 'email'];
     const values = [state.first_name, state.email];
-    console.log('values', values);
 
     for (let i = 0; i < fields.length; i++) {
       if (values[i] === '') {

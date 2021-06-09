@@ -26,7 +26,7 @@ export const SearchBar = styled.div`
 `;
 
 export const AddButton = styled(Button)`
-  margin-left: 10px;
+  margin-left: 20px;
   margin-bottom: 5px;
 `;
 
@@ -37,7 +37,7 @@ export const SearchBlock = styled.div`
   font-style: normal;
   display: flex;
   color: rgba(0, 0, 0, 0.87);
-  width: 85%;
+  width: 88%;
 `;
 
 export const SearchInput = styled.input`

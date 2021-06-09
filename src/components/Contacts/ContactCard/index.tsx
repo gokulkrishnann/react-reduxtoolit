@@ -12,7 +12,8 @@ import EditContact from '../EditContact';
 import { Modal } from '../../Modal';
 
 const ContactCard = (props) => {
-  const { id, first_name, last_name, email, avatar } = props.contact;
+  const { id, first_name, last_name, email, avatar, department, contribution } =
+    props.contact;
   const [showModal, setShowModal] = useState(false);
 
   const openModal = () => {
@@ -40,13 +41,17 @@ const ContactCard = (props) => {
         </Name>
       </Content>
       <Content>
-        <Attribute>{data[id - 1]?.department}</Attribute>
+        <Attribute>
+          {department ? department : data[id - 1]?.department}
+        </Attribute>
       </Content>
       <Content>
         <Attribute>{email}</Attribute>
       </Content>
       <Content>
-        <Attribute>{data[id - 1]?.contribution}</Attribute>
+        <Attribute>
+          {contribution ? contribution : data[id - 1]?.contribution}
+        </Attribute>
       </Content>
       <Modal
         title={`Edit Contact "${first_name} ${last_name}"`}

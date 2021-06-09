@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { editContact, addContact } from '../../store/contact-slice';
 import { Container } from './styles';
@@ -8,11 +8,9 @@ const Contacts = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const dispatch = useDispatch();
-  const [selectedContact, setSelectedContact] = useState(null);
   const contactList = useSelector((state: any) => state.contact.users);
 
   const updateContactHandler = (contact) => {
-    setSelectedContact(contact);
     dispatch(
       editContact({
         id: contact.id,
@@ -24,36 +22,41 @@ const Contacts = () => {
   };
 
   const addContactHandler = (contact) => {
-    console.log('new contact', contact);
     dispatch(
       addContact({
         id: contactList.length + 1,
         first_name: contact.first_name,
         last_name: contact.last_name,
-        email: contact.email
+        email: contact.email,
+        avatar: contact.avatar,
+        department: contact.department,
+        contribution: contact.contribution
       })
     );
   };
 
-  const searchHandler = (searchTerm) => {
-    setSearchTerm(searchTerm);
+  const searchHandler = useCallback(
+    (searchTerm) => {
+      setSearchTerm(searchTerm);
 
-    if (searchTerm !== '') {
-      const newContactList = contactList.filter((contact) => {
-        return Object.values(contact)
-          .join(' ')
-          .toLowerCase()
-          .includes(searchTerm.toLowerCase());
-      });
-      setSearchResults(newContactList);
-    } else {
-      setSearchResults(contactList);
-    }
-  };
+      if (searchTerm !== '') {
+        const newContactList = contactList.filter((contact) => {
+          return Object.values(contact)
+            .join(' ')
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase());
+        });
+        setSearchResults(newContactList);
+      } else {
+        setSearchResults(contactList);
+      }
+    },
+    [contactList]
+  );
 
   useEffect(() => {
     searchHandler(searchTerm);
-  }, [searchTerm, contactList]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [searchHandler, searchTerm]);
 
   return (
     <Container>
